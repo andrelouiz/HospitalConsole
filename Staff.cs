@@ -14,7 +14,7 @@ namespace Hospital
     [Serializable]
     class Staff
     {
-        public Staff(string irstName, string lastName, string pesel, string title)
+        public Staff(string firstName, string lastName, string pesel, string title)
         {
             FirstName = firstName;
             LastName = lastName;

@@ -54,7 +54,7 @@ namespace Hospital
                 xDoc = XDocument.Load("Employees.xml");
 
                 var result = from q in xDoc.Descendants("Employee")
-                             select new Staff
+                             select new 
                              {
                                  FirstName = q.Element("FirstName").Value,
                                  LastName = q.Element("LastName").Value,
@@ -63,7 +63,7 @@ namespace Hospital
                              };
                 foreach (var emp in result)
                 {
-                    Console.WriteLine("First name: {0}, Last name: {1}, Pesel: {2}, Title: {3}", emp.FirstName, emp.LastName, emp.Pesel, emp.Title);
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} \tTitle: {3}", emp.FirstName, emp.LastName, emp.Pesel, emp.Title);
                 }
                 Console.ReadKey();
 
@@ -77,7 +77,7 @@ namespace Hospital
                 xDoc = XDocument.Load("Employees.xml");
 
                 var result = from q in xDoc.Descendants("Employee")
-                             select new Doctor
+                             select new 
                              {
                                  FirstName = q.Element("FirstName").Value,
                                  LastName = q.Element("LastName").Value,
@@ -86,7 +86,7 @@ namespace Hospital
 
                 foreach (var emp in result)
                 {
-                    Console.WriteLine("First name: {0}, Last name: {1}, Pesel: {2}, Title: {3} Specialization: {3}", emp.FirstName, emp.LastName, emp.Specialization);
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tSpecialization: {2}", emp.FirstName, emp.LastName, emp.Specialization);
                 }
                 Console.ReadKey();
 
