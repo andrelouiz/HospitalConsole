@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace Hospital
 {
-   
+
     [Serializable]
     class Staff
     {
@@ -32,6 +32,7 @@ namespace Hospital
         public string Title { get; set; }
 
     }
+
 
     [Serializable]
     class Administrator
@@ -61,12 +62,12 @@ namespace Hospital
     [Serializable]
     class Doctor : Staff
     {
-        public Doctor( string _specialization, string firstName, string lastName, string pesel, string title) : base (firstName,lastName, pesel, title)
+        public Doctor( string specialization, string firstName, string lastName, string pesel, string title) : base (firstName,lastName, pesel, title)
         {
             FirstName = firstName;
             LastName = lastName;
             Title = title;
-            Specialization = _specialization;
+            Specialization = specialization;
         }
 
         public string Specialization { get; set; }
