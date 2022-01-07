@@ -43,12 +43,17 @@ namespace Hospital
                     case "4":
                         NewUser();
                         break;
+                    case "5":
+                        Environment.Exit(0);
+                        break;
 
                 }
             }
 
             static void EmployeeList()
             {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Hospital Employee's List");
                 XDocument xDoc;
                 xDoc = XDocument.Load("Employees.xml");
@@ -63,18 +68,20 @@ namespace Hospital
                              };
                 foreach (var emp in result)
                 {
-                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} \tTitle: {3}", emp.FirstName, emp.LastName, emp.Pesel, emp.Title);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} Title: {3}", emp.FirstName, emp.LastName, emp.Pesel, emp.Title);
                 }
-                Console.ReadKey();
-
+               
+                ReturnKey();
 
             }
             static void Roles()
             {
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Doctor's Specializations");
                 XDocument xDoc;
-                xDoc = XDocument.Load("Employees.xml");
+                xDoc = XDocument.Load("Doctors.xml");
 
                 var result = from q in xDoc.Descendants("Employee")
                              select new 
@@ -86,26 +93,45 @@ namespace Hospital
 
                 foreach (var emp in result)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("First name: {0} \tLast name: {1} \tSpecialization: {2}", emp.FirstName, emp.LastName, emp.Specialization);
                 }
-                Console.ReadKey();
 
+                ReturnKey();
             }
 
             static void Schedules()
             {
-                Console.WriteLine("Schedules");
+                Console.Clear();
+                Console.WriteLine("Schedules for Doctors");
             }
 
             static void NewUser()
             {
+                Console.Clear();
+                Console.WriteLine("Add new user");
 
 
 
             }
+
+            static void ReturnKey()
+            {
+                Console.WriteLine("\n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Press 'Enter' to return to Menu.");
+                ConsoleKeyInfo keyPressed = Console.ReadKey();
+                if (keyPressed.Key == ConsoleKey.Enter)
+                {
+                    Menu();
+                }
+
+            }
+
+          
+
         }
-
-
+       
     }
 
 }
