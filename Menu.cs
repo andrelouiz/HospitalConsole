@@ -25,12 +25,11 @@ namespace Hospital
             xDoc = XDocument.Load("users.xml");
             var selected_user = from x in xDoc.Descendants("users").Where
                                 (x => (string)x.Element("username") == user)
-                                select new
+                                select new Logon
                                 {
                                     UserName = x.Element("username").Value,
                                     Password = x.Element("pwd").Value,
                                     Title = x.Element("role").Value,
-
                                 };
 
             foreach (var x in selected_user)
@@ -62,13 +61,15 @@ namespace Hospital
         }
 
         static void AdminMenu()
-        {
+        {   
+
             Console.Clear();
+            Staff staff = new Staff();
+            Console.WriteLine("Logged in as {0}." + staff.Title);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Hospital Management System");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" 1 - Employee's list \n 2 - Doctor's Specializations \n 3 - Work Schedule \n 4 - New User \n 5 - Exit  ");
-
 
             while (true)
             {
@@ -102,17 +103,17 @@ namespace Hospital
                 xDoc = XDocument.Load("Employees.xml");
 
                 var result = from q in xDoc.Descendants("Employee")
-                             select new
+                             select new Staff
                              {
                                  FirstName = q.Element("FirstName").Value,
                                  LastName = q.Element("LastName").Value,
                                  Pesel = q.Element("Pesel").Value,
                                  Title = q.Element("Title").Value,
                              };
-                foreach (var emp in result)
+                foreach (var staff in result)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} Title: {3}", emp.FirstName, emp.LastName, emp.Pesel, emp.Title);
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} Title: {3}", staff.FirstName, staff.LastName, staff.Pesel, staff.Title);
                 }
 
 
@@ -140,6 +141,8 @@ namespace Hospital
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("First name: {0} \tLast name: {1} \tSpecialization: {2}", emp.FirstName, emp.LastName, emp.Specialization);
                 }
+
+                
 
                 ReturnKey();
             }
@@ -197,7 +200,7 @@ namespace Hospital
                 xDoc = XDocument.Load("Employees.xml");
 
                 var result = from q in xDoc.Descendants("Employee")
-                             select new
+                             select new Staff
                              {
                                  FirstName = q.Element("FirstName").Value,
                                  LastName = q.Element("LastName").Value,
@@ -223,7 +226,7 @@ namespace Hospital
                 xDoc = XDocument.Load("Doctors.xml");
 
                 var result = from q in xDoc.Descendants("Employee")
-                             select new
+                             select new Doctor
                              {
                                  FirstName = q.Element("FirstName").Value,
                                  LastName = q.Element("LastName").Value,
