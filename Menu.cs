@@ -96,7 +96,7 @@ namespace Hospital
                 XDocument xDoc;
                 xDoc = XDocument.Load("Employees.xml");
 
-                var result = from q in xDoc.Descendants("Employee")
+                var result = from q in xDoc.Descendants("Staff")
                              select new Staff
                              {
                                  FirstName = q.Element("FirstName").Value,
@@ -142,20 +142,20 @@ namespace Hospital
             {
                 Console.Clear();
                 XDocument xDoc;
-                xDoc = XDocument.Load("Employees.xml");
+                xDoc = XDocument.Load("Schedule.xml");
 
-                var result = from q in xDoc.Descendants("Employee")
-                             select new Staff
+                var result = from q in xDoc.Descendants("Schedules")
+                             select new Schedules
                              {
                                  FirstName = q.Element("FirstName").Value,
                                  LastName = q.Element("LastName").Value,
-                                 Pesel = q.Element("Pesel").Value,
                                  Title = q.Element("Title").Value,
+                                 Schedule = q.Element("Schedule").Value,
                              };
-                foreach (var staff in result)
+                foreach (var sched in result)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} Title: {3}", staff.FirstName, staff.LastName, staff.Pesel, staff.Title);
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \t Schedule: {3} ", sched.FirstName, sched.LastName, sched.Title, sched.Schedule);
                 }
 
                 ReturnKeyAdm();
@@ -193,11 +193,13 @@ namespace Hospital
                 schedule.FirstName = Console.ReadLine();
                 Console.WriteLine("Last Name of the employee");
                 schedule.LastName = Console.ReadLine();
+                Console.WriteLine("Job title of the employee");
+                schedule.Title = Console.ReadLine();
                 Console.WriteLine("Please enter the date you would like to add a new shift (e.g. 12/31/2021 16:00)");
                 DateTime dateTime = DateTime.Parse(Console.ReadLine());
                 schedule.Schedule = dateTime.ToString();
 
-                string path = Path.Combine(Environment.CurrentDirectory, "1.xml");
+                string path = Path.Combine(Environment.CurrentDirectory, "Schedules.xml");
                 XmlSerializer xs = new XmlSerializer(typeof(Schedules));
                 using (FileStream stream = File.Create(path))
                 {

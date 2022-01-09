@@ -13,7 +13,8 @@ namespace Hospital
     [Serializable]
    
     public class Staff
-    {
+    {   
+        
         [XmlElement("FirstName")]
         public string FirstName { get; set; }
         [XmlElement("LastName")]
