@@ -15,7 +15,7 @@ namespace Hospital
     {
         public void Login()
         {
-            Console.WriteLine("HOSPITAL MANAGEMENT SYSTEM LOGIN");
+            Console.WriteLine("HOSPITAL MANAGEMENT SYSTEM - LOGIN");
             Console.Write("Username: ");
             string user = Console.ReadLine();
             Console.Write("Password: ");
@@ -35,9 +35,6 @@ namespace Hospital
             {
                 user = x.UserName;
                 pwd = x.Password;
-
-
-
                 //Login box check
                 if (user == x.UserName && pwd == x.Password)
                 {
@@ -45,12 +42,10 @@ namespace Hospital
                     {
                         AdminMenu();
                     }
-
                     else if (x.Title == "Doctor" || x.Title == "Nurse")
                     {
                         MainMenu();
                     }
-
                     else if (pwd != x.Password || user != x.UserName)
                     {
                         Console.WriteLine("Wrong credentials.");
@@ -59,7 +54,6 @@ namespace Hospital
                 }
             }
         }
-
         public static void AdminMenu()
         {
             Console.Clear();
@@ -68,7 +62,7 @@ namespace Hospital
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Hospital Management System \nLogged in as: " + staff.Title + "\n");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" 1 - Employee's list \n 2 - Doctor's Specializations \n 3 - Work Schedule \n 4 - New User \n 5 - Exit  ");
+            Console.WriteLine(" 1 - Employee's list \n 2 - Doctor's Specializations \n 3 - Work Schedule \n 4 - Add New User \n 5 - Add New Schedule \n 6 - Exit  ");
 
             while (true)
             {
@@ -87,6 +81,9 @@ namespace Hospital
                         NewUser();
                         break;
                     case "5":
+                        NewSchedule();
+                        break;
+                    case "6":
                         Environment.Exit(0);
                         break;
                 }
@@ -144,26 +141,70 @@ namespace Hospital
             static void Schedules()
             {
                 Console.Clear();
-                Console.WriteLine("Schedules for Doctors");
+                XDocument xDoc;
+                xDoc = XDocument.Load("Employees.xml");
 
+                var result = from q in xDoc.Descendants("Employee")
+                             select new Staff
+                             {
+                                 FirstName = q.Element("FirstName").Value,
+                                 LastName = q.Element("LastName").Value,
+                                 Pesel = q.Element("Pesel").Value,
+                                 Title = q.Element("Title").Value,
+                             };
+                foreach (var staff in result)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} Title: {3}", staff.FirstName, staff.LastName, staff.Pesel, staff.Title);
+                }
+
+                ReturnKeyAdm();
             }
 
             static void NewUser()
             {   
                 Console.WriteLine("Create a new user \n");
-                Staff staff1 = new Staff();
-                Console.Write("First Name: ");
-                string firstname = Console.ReadLine();
-                Console.Write("Last Name: ");
-                string lastname = Console.ReadLine();
-                Console.Write("Pesel Number: ");
-                string pesel = Console.ReadLine();
-                Console.Write("Job Title: ");
-                string title = Console.ReadLine();
-                staff1.Save("test.xml");
+                Staff newStaff = new Staff();
+                    Console.Write("First Name: ");
+                    newStaff.FirstName = Console.ReadLine();
+                    Console.Write("Last Name: ");
+                    newStaff.LastName = Console.ReadLine();
+                    Console.Write("Pesel Number: ");
+                    newStaff.Pesel = Console.ReadLine();
+                    Console.Write("Job Title: ");
+                    newStaff.Title = Console.ReadLine();
+
+                string path = Path.Combine(Environment.CurrentDirectory, "Employees.xml");
+                XmlSerializer xs = new XmlSerializer(typeof(Staff));
+                using(FileStream stream = File.Create(path))
+                {
+                    xs.Serialize(stream, newStaff);
+                }
+                Console.WriteLine("Employee added sucessfuly!");
 
                 ReturnKeyAdm();
+            }
 
+            static void NewSchedule()
+            {
+                Console.WriteLine("Schedule Management");
+                Schedules schedule = new Schedules();
+                Console.WriteLine("First Name of the employee");
+                schedule.FirstName = Console.ReadLine();
+                Console.WriteLine("Last Name of the employee");
+                schedule.LastName = Console.ReadLine();
+                Console.WriteLine("Please enter the date you would like to add a new shift (e.g. 12/31/2021 16:00)");
+                DateTime dateTime = DateTime.Parse(Console.ReadLine());
+                schedule.Schedule = dateTime.ToString();
+
+                string path = Path.Combine(Environment.CurrentDirectory, "1.xml");
+                XmlSerializer xs = new XmlSerializer(typeof(Schedules));
+                using (FileStream stream = File.Create(path))
+                {
+                    xs.Serialize(stream, schedule);
+                }
+                Console.WriteLine("Shift added sucessfully.");
+                ReturnKeyAdm();
             }
         }
         static void MainMenu()
@@ -255,7 +296,7 @@ namespace Hospital
             ConsoleKeyInfo keyPressed = Console.ReadKey();
             if (keyPressed.Key == ConsoleKey.Enter)
             {
-                ReturnKey();
+                AdminMenu();
             }
 
         }

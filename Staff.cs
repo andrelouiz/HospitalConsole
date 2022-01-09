@@ -11,37 +11,38 @@ using System.Xml.Serialization;
 namespace Hospital
 {
     [Serializable]
+   
     public class Staff
     {
+        [XmlElement("FirstName")]
         public string FirstName { get; set; }
+        [XmlElement("LastName")]
         public string LastName { get; set; }
+        [XmlElement("Pesel")]
         public string Pesel { get; set; }
+        [XmlElement("Title")]
         public string Title { get; set; }
-
-        public void Save(string fileName)
-        {
-            using (FileStream stream = new FileStream(fileName, FileMode.Create))
-            {
-                XmlSerializer xml = new XmlSerializer(typeof(Staff));
-                xml.Serialize(stream, this);
-            }
-        }
     }
     [Serializable]
     class Logon : Staff
     {
+        [XmlElement("UserName")]
         public string UserName { get; set; }
+        [XmlElement("Password")]
         public string Password { get; set; }
     }
     [Serializable]
-    class MedicalStaff : Staff
+    public class Schedules : Staff
     {
+        [XmlElement("Schedule")]
         public string Schedule { get; set; }
+        [XmlElement("AddShift")]
         public string AddShift { get; set; }
     }
     [Serializable]
-    class Doctor : MedicalStaff
+    class Doctor : Schedules
     {
+        [XmlElement("Specialization")]
         public string Specialization { get; set; }
     }
 
