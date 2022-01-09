@@ -244,7 +244,7 @@ namespace Hospital
             {
                 Console.Clear();
                 Console.WriteLine("Schedules for Doctors");
-                MainReturnKeyMenu();
+                ReturnKey();
             }
         }
         static void ReturnKeyAdm()
