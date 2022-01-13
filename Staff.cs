@@ -11,17 +11,15 @@ using System.Xml.Serialization;
 namespace Hospital
 {
     [Serializable]
-   
     public class Staff
     {   
-        
-        [XmlElement("FirstName")]
+        //[XmlElement("FirstName")]
         public string FirstName { get; set; }
-        [XmlElement("LastName")]
+        //[XmlElement("LastName")]
         public string LastName { get; set; }
-        [XmlElement("Pesel")]
+        //[XmlElement("Pesel")]
         public string Pesel { get; set; }
-        [XmlElement("Title")]
+        //[XmlElement("Title")]
         public string Title { get; set; }
     }
     [Serializable]
@@ -46,6 +44,4 @@ namespace Hospital
         [XmlElement("Specialization")]
         public string Specialization { get; set; }
     }
-
-  
 }

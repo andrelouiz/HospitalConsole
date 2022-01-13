@@ -157,7 +157,6 @@ namespace Hospital
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \t Schedule: {3} ", sched.FirstName, sched.LastName, sched.Title, sched.Schedule);
                 }
-
                 ReturnKeyAdm();
             }
 
@@ -165,21 +164,21 @@ namespace Hospital
             {   
                 Console.WriteLine("Create a new user \n");
                 Staff newStaff = new Staff();
-                    Console.Write("First Name: ");
-                    newStaff.FirstName = Console.ReadLine();
-                    Console.Write("Last Name: ");
-                    newStaff.LastName = Console.ReadLine();
-                    Console.Write("Pesel Number: ");
-                    newStaff.Pesel = Console.ReadLine();
-                    Console.Write("Job Title: ");
-                    newStaff.Title = Console.ReadLine();
+                Console.Write("First Name: ");
+                newStaff.FirstName = Console.ReadLine();
+                Console.Write("Last Name: ");
+                newStaff.LastName = Console.ReadLine();
+                Console.Write("Pesel Number: ");
+                newStaff.Pesel = Console.ReadLine();
+                Console.Write("Job Title: ");
+                newStaff.Title = Console.ReadLine();
 
-                string path = Path.Combine(Environment.CurrentDirectory, "Employees.xml");
-                XmlSerializer xs = new XmlSerializer(typeof(Staff));
-                using(FileStream stream = File.Create(path))
-                {
-                    xs.Serialize(stream, newStaff);
-                }
+
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Staff));
+                StreamWriter sw = new StreamWriter("Employees.xml");
+                xmlSerializer.Serialize(sw, newStaff);
+                sw.Close();
+
                 Console.WriteLine("Employee added sucessfuly!");
 
                 ReturnKeyAdm();
@@ -199,12 +198,10 @@ namespace Hospital
                 DateTime dateTime = DateTime.Parse(Console.ReadLine());
                 schedule.Schedule = dateTime.ToString();
 
-                string path = Path.Combine(Environment.CurrentDirectory, "Schedules.xml");
-                XmlSerializer xs = new XmlSerializer(typeof(Schedules));
-                using (FileStream stream = File.Create(path))
-                {
-                    xs.Serialize(stream, schedule);
-                }
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Schedules));
+                StreamWriter sw = new StreamWriter("Schedule.xml");
+                xmlSerializer.Serialize(sw, schedule);
+                sw.Close();
                 Console.WriteLine("Shift added sucessfully.");
                 ReturnKeyAdm();
             }
@@ -244,7 +241,7 @@ namespace Hospital
                 XDocument xDoc;
                 xDoc = XDocument.Load("Employees.xml");
 
-                var result = from q in xDoc.Descendants("Employee")
+                var result = from q in xDoc.Descendants("Staff")
                              select new Staff
                              {
                                  FirstName = q.Element("FirstName").Value,
@@ -252,11 +249,13 @@ namespace Hospital
                                  Pesel = q.Element("Pesel").Value,
                                  Title = q.Element("Title").Value,
                              };
-                foreach (var emp in result)
+                foreach (var staff in result)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} Title: {3}", emp.FirstName, emp.LastName, emp.Pesel, emp.Title);
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tPesel: {2} Title: {3}", staff.FirstName, staff.LastName, staff.Pesel, staff.Title);
                 }
+
+                Console.WriteLine("Press 'Enter' to return to the Main menu.");
                 ReturnKey();
             }
             static void Roles()
@@ -287,7 +286,28 @@ namespace Hospital
             {
                 Console.Clear();
                 Console.WriteLine("Schedules for Doctors");
-                ReturnKey();
+                static void Schedules()
+                {
+                    Console.Clear();
+                    XDocument xDoc;
+                    xDoc = XDocument.Load("Schedule.xml");
+
+                    var result = from q in xDoc.Descendants("Schedules")
+                                 select new Schedules
+                                 {
+                                     FirstName = q.Element("FirstName").Value,
+                                     LastName = q.Element("LastName").Value,
+                                     Title = q.Element("Title").Value,
+                                     Schedule = q.Element("Schedule").Value,
+                                 };
+                    foreach (var sched in result)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \t Schedule: {3} ", sched.FirstName, sched.LastName, sched.Title, sched.Schedule);
+                    }
+                    Console.WriteLine("Press 'Enter' to return to the Main menu.");
+                    ReturnKey();
+                }
             }
         }
         static void ReturnKeyAdm()
@@ -314,6 +334,5 @@ namespace Hospital
             }
 
         }
-
     }
 }
