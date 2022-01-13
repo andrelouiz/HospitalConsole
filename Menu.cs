@@ -135,6 +135,7 @@ namespace Hospital
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("First name: {0} \tLast name: {1} \tSpecialization: {2}", emp.FirstName, emp.LastName, emp.Specialization);
                 }
+                Console.WriteLine("Press 'Enter' to return to the Main menu.");
                 ReturnKeyAdm();
 
             }
@@ -161,7 +162,8 @@ namespace Hospital
             }
 
             static void NewUser()
-            {   
+            {
+                Console.Clear();
                 Console.WriteLine("Create a new user \n");
                 Staff newStaff = new Staff();
                 Console.Write("First Name: ");
@@ -181,6 +183,7 @@ namespace Hospital
 
                 Console.WriteLine("Employee added sucessfuly!");
 
+                Console.WriteLine("Press 'Enter' to return to the Main menu.");
                 ReturnKeyAdm();
             }
 
@@ -279,6 +282,7 @@ namespace Hospital
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("First name: {0} \tLast name: {1} \tSpecialization: {2}", emp.FirstName, emp.LastName, emp.Specialization);
                 }
+                Console.WriteLine("Press 'Enter' to return to the Main menu.");
                 ReturnKey();
             }
 
@@ -286,28 +290,24 @@ namespace Hospital
             {
                 Console.Clear();
                 Console.WriteLine("Schedules for Doctors");
-                static void Schedules()
-                {
-                    Console.Clear();
-                    XDocument xDoc;
-                    xDoc = XDocument.Load("Schedule.xml");
+                XDocument xDoc;
+                xDoc = XDocument.Load("Schedule.xml");
 
-                    var result = from q in xDoc.Descendants("Schedules")
-                                 select new Schedules
-                                 {
-                                     FirstName = q.Element("FirstName").Value,
-                                     LastName = q.Element("LastName").Value,
-                                     Title = q.Element("Title").Value,
-                                     Schedule = q.Element("Schedule").Value,
-                                 };
-                    foreach (var sched in result)
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \t Schedule: {3} ", sched.FirstName, sched.LastName, sched.Title, sched.Schedule);
-                    }
-                    Console.WriteLine("Press 'Enter' to return to the Main menu.");
-                    ReturnKey();
-                }
+                var result = from q in xDoc.Descendants("Schedules")
+                             select new Schedules
+                             {
+                                 FirstName = q.Element("FirstName").Value,
+                                 LastName = q.Element("LastName").Value,
+                                 Title = q.Element("Title").Value,
+                                 Schedule = q.Element("Schedule").Value,
+                             };
+                foreach (var sched in result)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \t Schedule: {3} ", sched.FirstName, sched.LastName, sched.Title, sched.Schedule);
+                };
+                Console.WriteLine("Press 'Enter' to return to the Main menu.");
+                ReturnKey();
             }
         }
         static void ReturnKeyAdm()
