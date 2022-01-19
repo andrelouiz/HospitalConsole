@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 
 namespace Hospital
@@ -9,8 +12,9 @@ namespace Hospital
     {
         static void Main(string[] args)
         {
-            Menu menu = new Menu();
-            menu.Login();
+            Login login = new Login();
+            login.LoginScreen();
+
         }
     }
 }

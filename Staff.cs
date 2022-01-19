@@ -12,36 +12,58 @@ namespace Hospital
 {
     [Serializable]
     public class Staff
-    {   
-        //[XmlElement("FirstName")]
-        public string FirstName { get; set; }
-        //[XmlElement("LastName")]
-        public string LastName { get; set; }
-        //[XmlElement("Pesel")]
-        public string Pesel { get; set; }
-        //[XmlElement("Title")]
-        public string Title { get; set; }
-    }
-    [Serializable]
-    class Logon : Staff
     {
-        [XmlElement("UserName")]
-        public string UserName { get; set; }
+        [XmlElement("FirstName")]
+        public string FirstName { get; set; }
+        [XmlElement("LastName")]
+        public string LastName { get; set; }
+        [XmlElement("Pesel")]
+        public string Pesel { get; set; }
+        [XmlElement("Title")]
+        public string Title { get; set; }
+        [XmlElement("Specialization")]
+        public string Specialization { get; set; }
+
+        //Encapsulation
         [XmlElement("Password")]
-        public string Password { get; set; }
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set { password = value; }
+        }
+        [XmlElement("Username")]
+        private string username;
+        public string Username
+        {
+            get { return username; }
+            set { username = value; }
+        }
+
+        public void Listing() //Constructor
+        {  
+            Console.WriteLine("First Name: {0} \tLast Name: {1} \tPesel: {2} \tTitle: {3}", FirstName, LastName, Pesel, Title);
+        }
+        public void Specializations() //Constructor
+        {
+            Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \tSpecialization: {3}", FirstName, LastName, Title, Specialization);
+        }
+
     }
+  
     [Serializable]
-    public class Schedules : Staff
+    public class Schedules : Staff //Inheritance
     {
         [XmlElement("Schedule")]
         public string Schedule { get; set; }
-        [XmlElement("AddShift")]
-        public string AddShift { get; set; }
+
+        public void Scheduletable()
+        {   
+            // Polymorphism
+            Console.WriteLine("First Name: {0} \tLast Name: {1} \tTitle: {2} \t Schedule: {3} ", FirstName, LastName, Title, Schedule);
+        }
     }
-    [Serializable]
-    class Doctor : Schedules
-    {
-        [XmlElement("Specialization")]
-        public string Specialization { get; set; }
-    }
+
+
+
 }
