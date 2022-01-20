@@ -71,7 +71,7 @@ namespace Hospital
 
                 foreach (var docs in roles)
                 {
-                    if (docs.Title.Equals("Doctor"))
+                    if (docs.Title.Equals("Doctor"))//node title = doctor
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                         docs.Specializations();

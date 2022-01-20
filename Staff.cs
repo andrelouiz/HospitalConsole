@@ -12,15 +12,16 @@ namespace Hospital
 {
     [Serializable]
     public class Staff
-    {
+    {   //Properties
+
         [XmlElement("FirstName")]
         public string FirstName { get; set; }
         [XmlElement("LastName")]
         public string LastName { get; set; }
         [XmlElement("Pesel")]
-        public string Pesel { get; set; }
+        protected string Pesel { get; set; }
         [XmlElement("Title")]
-        public string Title { get; set; }
+        protected string Title { get; set; }
         [XmlElement("Specialization")]
         public string Specialization { get; set; }
 
@@ -40,11 +41,11 @@ namespace Hospital
             set { username = value; }
         }
 
-        public void Listing() //Constructor
+        public void Listing() 
         {  
             Console.WriteLine("First Name: {0} \tLast Name: {1} \tPesel: {2} \tTitle: {3}", FirstName, LastName, Pesel, Title);
         }
-        public void Specializations() //Constructor
+        public void Specializations() 
         {
             Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \tSpecialization: {3}", FirstName, LastName, Title, Specialization);
         }

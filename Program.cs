@@ -11,7 +11,7 @@ namespace Hospital
     class Program
     {
         static void Main(string[] args)
-        {
+        {   //instatiating the object login
             Login login = new Login();
             login.LoginScreen();
 
