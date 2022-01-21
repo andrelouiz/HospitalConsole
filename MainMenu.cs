@@ -9,11 +9,11 @@ namespace Hospital
 {
     public class MainMenu
     {
-        public void Menu()
+        public static void Menu()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Hospital Management System");
+            Console.WriteLine("Hospital Management System \n Logged in as user");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" 1 - Employee's list \n 2 - Doctor's Specializations \n 3 - Work Schedule \n 4 - Exit  ");
 
@@ -105,8 +105,7 @@ namespace Hospital
             ConsoleKeyInfo keyPressed = Console.ReadKey();
             if (keyPressed.Key == ConsoleKey.Enter)
             {
-                MainMenu menu = new MainMenu();
-                menu.Menu();
+                MainMenu.Menu();
             }
         }
     }

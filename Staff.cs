@@ -13,7 +13,6 @@ namespace Hospital
     [Serializable]
     public class Staff
     {   //Properties
-
         [XmlElement("FirstName")]
         public string FirstName { get; set; }
         [XmlElement("LastName")]
@@ -48,7 +47,6 @@ namespace Hospital
         {
             Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \tSpecialization: {3}", FirstName, LastName, Title, Specialization);
         }
-
     }
   
     [Serializable]
@@ -63,7 +61,4 @@ namespace Hospital
             Console.WriteLine("First Name: {0} \tLast Name: {1} \tTitle: {2} \t Schedule: {3} ", FirstName, LastName, Title, Schedule);
         }
     }
-
-
-
 }

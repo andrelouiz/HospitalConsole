@@ -9,7 +9,7 @@ namespace Hospital
 {
     public class Login
     {
-        public void LoginScreen()
+        public static void LoginScreen()
         {
             Console.WriteLine("HOSPITAL MANAGEMENT SYSTEM - LOGIN");
 
@@ -29,13 +29,11 @@ namespace Hospital
                 {
                     if (staff.Title.Equals("Admin"))
                     {
-                        AdminMenu admin = new AdminMenu();
-                        admin.AdminsMenu();
+                        AdminMenu.AdminsMenu();
                     }
                     else if (staff.Title.Equals("Doctor") || staff.Title.Equals("Nurse"))
                     {
-                        MainMenu menu = new MainMenu();
-                        menu.Menu();
+                        MainMenu.Menu();
                     }
                     else if (pwd != staff.Password || user != staff.Username)
                     {

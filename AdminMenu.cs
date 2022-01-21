@@ -9,7 +9,7 @@ namespace Hospital
 {
     class AdminMenu 
     {
-        public void AdminsMenu()
+        public static void AdminsMenu()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
@@ -171,8 +171,7 @@ namespace Hospital
             ConsoleKeyInfo keyPressed = Console.ReadKey();
             if (keyPressed.Key == ConsoleKey.Enter)
             {
-                AdminMenu admin = new AdminMenu();
-                admin.AdminsMenu();
+                AdminMenu.AdminsMenu();
             }
         }
     }
