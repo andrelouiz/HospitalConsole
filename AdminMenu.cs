@@ -77,7 +77,6 @@ namespace Hospital
                         docs.Specializations();
                     }
                 }
-
                 ReturnKeyAdm();
             }
             static void Schedules()

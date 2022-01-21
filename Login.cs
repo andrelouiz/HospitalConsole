@@ -12,6 +12,7 @@ namespace Hospital
         public void LoginScreen()
         {
             Console.WriteLine("HOSPITAL MANAGEMENT SYSTEM - LOGIN");
+
             Console.Write("Username: ");
             string user = Console.ReadLine();
             Console.Write("Password: ");

@@ -25,10 +25,9 @@ namespace Hospital
         [XmlElement("Specialization")]
         public string Specialization { get; set; }
 
-        //Encapsulation
         [XmlElement("Password")]
-        private string password; //field
-        public string Password //property
+        private string password; //encapsulation
+        public string Password 
         {
             get { return password; }
             set { password = value; }
