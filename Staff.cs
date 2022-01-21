@@ -19,22 +19,22 @@ namespace Hospital
         [XmlElement("LastName")]
         public string LastName { get; set; }
         [XmlElement("Pesel")]
-        protected string Pesel { get; set; }
+        public string Pesel { get; set; }
         [XmlElement("Title")]
-        protected string Title { get; set; }
+        public string Title { get; set; }
         [XmlElement("Specialization")]
         public string Specialization { get; set; }
 
         //Encapsulation
         [XmlElement("Password")]
-        private string password;
-        public string Password
+        private string password; //field
+        public string Password //property
         {
             get { return password; }
             set { password = value; }
         }
         [XmlElement("Username")]
-        private string username;
+        private string username; 
         public string Username
         {
             get { return username; }

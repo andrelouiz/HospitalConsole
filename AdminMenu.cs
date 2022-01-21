@@ -99,7 +99,7 @@ namespace Hospital
                 ReturnKeyAdm();
             }
 
-            static void NewEmployee()
+            static void NewEmployee() 
             {
                 Console.Clear();
                 List<Staff> staffs = new List<Staff>();
