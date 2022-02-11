@@ -12,7 +12,6 @@ namespace Hospital
     {
         static void Main(string[] args)
         {   
-            //static method, don't need to instantiate a new object
             Login.LoginScreen();
         }
     }

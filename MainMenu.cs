@@ -19,7 +19,7 @@ namespace Hospital
 
             while (true)
             {
-                switch (Console.ReadLine())
+            switch (Console.ReadLine())
                 {
                     case "1":
                         EmployeeList();
@@ -49,7 +49,7 @@ namespace Hospital
                 foreach (var staff in employees)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    staff.Listing();
+                    Console.WriteLine(staff);
                 }
 
                 ReturnKey();
@@ -64,13 +64,19 @@ namespace Hospital
                 XmlSerializer xml = new XmlSerializer(typeof(List<Staff>));
                 using (FileStream load = File.Open(@"Employees.xml", FileMode.Open))
                     roles = (List<Staff>)xml.Deserialize(load);
+                Specializations spec = new Specializations();
 
                 foreach (var docs in roles)
                 {
                     if (docs.Title.Equals("Doctor"))
-                    {
+                    {   
                         Console.ForegroundColor = ConsoleColor.White;
-                        docs.Specializations();
+                        Console.ForegroundColor = ConsoleColor.White;
+                        spec.FirstName = docs.FirstName;
+                        spec.LastName = docs.LastName;
+                        spec.Specialization = docs.Specialization;
+                        spec.Title = docs.Title;
+                        Console.WriteLine(spec);
                     }
                 }
 

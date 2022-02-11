@@ -54,7 +54,7 @@ namespace Hospital
                 foreach (var staff in employees)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    staff.Listing();
+                    Console.WriteLine(staff);
                 }
                 ReturnKeyAdm();
             }
@@ -68,13 +68,18 @@ namespace Hospital
                 XmlSerializer xml = new XmlSerializer(typeof(List<Staff>));
                 using (FileStream load = File.Open(@"Employees.xml", FileMode.Open))
                     roles = (List<Staff>)xml.Deserialize(load);
+                Specializations spec = new Specializations();
 
                 foreach (var docs in roles)
                 {
                     if (docs.Title.Equals("Doctor"))//node title = doctor
                     {
                         Console.ForegroundColor = ConsoleColor.White;
-                        docs.Specializations();
+                        spec.FirstName = docs.FirstName;
+                        spec.LastName = docs.LastName;
+                        spec.Specialization = docs.Specialization;
+                        spec.Title = docs.Title;
+                        Console.WriteLine(spec);
                     }
                 }
                 ReturnKeyAdm();
@@ -106,7 +111,7 @@ namespace Hospital
                 using (FileStream load = File.Open(@"Employees.xml", FileMode.Open))
                 staffs = (List<Staff>)xml.Deserialize(load);
 
-                Staff newStaff = new Staff();
+                Staff newStaff = new Staff(); 
                 Console.WriteLine("Create a new user \n");
                 Console.Write("First Name: ");
                 newStaff.FirstName = Console.ReadLine();

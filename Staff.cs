@@ -9,10 +9,10 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Hospital
-{
+{   
     [Serializable]
-    public class Staff
-    {   //Properties
+    public abstract class Database
+    {   
         [XmlElement("FirstName")]
         public string FirstName { get; set; }
         [XmlElement("LastName")]
@@ -25,7 +25,7 @@ namespace Hospital
         public string Specialization { get; set; }
 
         [XmlElement("Password")]
-        private string password; //encapsulation
+        private string password; 
         public string Password 
         {
             get { return password; }
@@ -39,16 +39,24 @@ namespace Hospital
             set { username = value; }
         }
 
-        public void Listing() 
-        {  
-            Console.WriteLine("First Name: {0} \tLast Name: {1} \tPesel: {2} \tTitle: {3}", FirstName, LastName, Pesel, Title);
-        }
-        public void Specializations() 
+        public override string ToString()
         {
-            Console.WriteLine("First name: {0} \tLast name: {1} \tTitle: {2} \tSpecialization: {3}", FirstName, LastName, Title, Specialization);
+            return $"First Name: {this.FirstName} \tLast Name: {this.LastName} \tPesel: {this.Pesel} \tTitle: {this.Title}"; 
         }
     }
-  
+    public class Staff : Database
+    {
+
+    }
+
+    public class Specializations : Staff
+    {
+        public override string ToString()
+        {
+            return $"First name: {this.FirstName} \tLast name: {this.LastName} \tTitle: {this.Title} \tSpecialization: {this.Specialization}";
+        }
+    }
+
     [Serializable]
     public class Schedules : Staff //Inheritance
     {
@@ -57,8 +65,9 @@ namespace Hospital
 
         public void Scheduletable()
         {   
-            // Polymorphism
             Console.WriteLine("First Name: {0} \tLast Name: {1} \tTitle: {2} \t Schedule: {3} ", FirstName, LastName, Title, Schedule);
         }
+
     }
+
 }
